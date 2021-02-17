@@ -31,7 +31,7 @@
 
 PACKAGE_URL=http://repo.mongodb.org/apt/ubuntu
 PACKAGE_NAME=mongodb-org
-PACKAGE_VERSION="4.0.2"
+PACKAGE_VERSION="4.4.0"
 REPLICA_SET_KEY_DATA=""
 REPLICA_SET_NAME=""
 REPLICA_SET_KEY_FILE="/etc/mongo-replicaset-key"
@@ -349,7 +349,7 @@ tune_memory
 tune_system
 
 # Step 3
-#install_mongodb
+install_mongodb
 
 # Step 4
 #configure_mongodb
