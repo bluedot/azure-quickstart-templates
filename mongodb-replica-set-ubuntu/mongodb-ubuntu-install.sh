@@ -239,7 +239,7 @@ configure_replicaset()
 		log "Initiating a replica set $REPLICA_SET_NAME with $INSTANCE_COUNT members"
 
 		# Initiate a replica set
-		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.initiate())"
+		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --port ${MONGODB_PORT} --eval "printjson(rs.initiate())"
 
 		# Add all members except this node as it will be included into the replica set after the above command completes
 		for (( n=0 ; n<($INSTANCE_COUNT-1) ; n++))
@@ -247,12 +247,12 @@ configure_replicaset()
 			MEMBER_HOST="${NODE_IP_PREFIX}${n}:${MONGODB_PORT}"
 
 			log "Adding member $MEMBER_HOST to replica set $REPLICA_SET_NAME"
-			mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.add('${MEMBER_HOST}'))"
+			mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --port ${MONGODB_PORT} --eval "printjson(rs.add('${MEMBER_HOST}'))"
 		done
 
 		# Print the current replica set configuration
-		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.conf())"
-		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --eval "printjson(rs.status())"
+		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --port ${MONGODB_PORT} --eval "printjson(rs.conf())"
+		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host 127.0.0.1 --port ${MONGODB_PORT} --eval "printjson(rs.status())"
 	fi
 
 	# Register an arbiter node with the replica set
@@ -265,7 +265,7 @@ configure_replicaset()
 		CURRENT_NODE_IP=${CURRENT_NODE_IPS[@]}
 
 		log "Adding an arbiter ${HOSTNAME} ($CURRENT_NODE_IP) node to the replica set $REPLICA_SET_NAME"
-		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host $PRIMARY_MEMBER_HOST --eval "printjson(rs.addArb('${CURRENT_NODE_IP}'))"
+		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host $PRIMARY_MEMBER_HOST --port ${MONGODB_PORT} --eval "printjson(rs.addArb('${CURRENT_NODE_IP}'))"
 	fi
 }
 
@@ -345,7 +345,7 @@ configure_db_users()
 {
 	# Create a system administrator
 	log "Creating a system administrator"
-	mongo admin --host 127.0.0.1 --eval "db.createUser({user: '${ADMIN_USER_NAME}', pwd: '${ADMIN_USER_PASSWORD}', roles:[{ role: 'userAdminAnyDatabase', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'readWriteAnyDatabase', db: 'admin' }, { role: 'dbAdminAnyDatabase', db: 'admin' } ]})"
+	mongo admin --host 127.0.0.1 --port ${MONGODB_PORT} --eval "db.createUser({user: '${ADMIN_USER_NAME}', pwd: '${ADMIN_USER_PASSWORD}', roles:[{ role: 'userAdminAnyDatabase', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'readWriteAnyDatabase', db: 'admin' }, { role: 'dbAdminAnyDatabase', db: 'admin' } ]})"
 }
 
 # Step 1
