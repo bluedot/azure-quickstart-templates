@@ -189,7 +189,7 @@
       "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1_v2')]",
       "numberOfMembers": 1,
       "totalMemberCount": 2,
-      "arbiter": "Disabled",
+      "arbiter": "Enabled",
       "vmTemplate": "[uri(parameters('_artifactsLocation'), concat('member-resources-D1.json', parameters('_artifactsLocationSasToken')))]",
       "storageAccountCount": 1,
       "dataDiskSize": 128
@@ -199,7 +199,7 @@
       "vmSizeArbiter": "[concat('Standard_', parameters('vmSeries'), '1_v2')]",
       "numberOfMembers": 2,
       "totalMemberCount": 3,
-      "arbiter": "Enabled",
+      "arbiter": "Disabled",
       "vmTemplate": "[uri(parameters('_artifactsLocation'), concat('member-resources-D1.json', parameters('_artifactsLocationSasToken')))]",
       "storageAccountCount": 1,
       "dataDiskSize": 128
