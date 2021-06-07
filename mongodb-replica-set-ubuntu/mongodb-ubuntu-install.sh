@@ -310,11 +310,11 @@ EOF
 	# After reboot, mongod wouldn't start since the pidFilePath is defined as /var/run/mongodb/mongod.pid in the configuration and path doesn't exist
 	#sed -i "s|pre-start script|pre-start script\n  if [ ! -d /var/run/mongodb ]; then\n    mkdir -p /var/run/mongodb \&\& touch /var/run/mongodb/mongod.pid \&\& chmod 777 /var/run/mongodb/mongod.pid \&\& chown mongodb:mongodb /var/run/mongodb/mongod.pid\n  fi\n|" /etc/mongod.conf
 
-	mkdir -p /var/run/mongodb
-	chown -R mongodb:mongodb /var/run/mongodb
-	touch /var/run/mongodb/mongod.pid
-	chmod 777 /var/run/mongodb/mongod.pid 
-	chown mongodb:mongodb /var/run/mongodb/mongod.pid
+	sudo mkdir -p /var/run/mongodb
+	sudo chown -R mongodb:mongodb /var/run/mongodb
+	sudo touch /var/run/mongodb/mongod.pid
+	sudo chmod 777 /var/run/mongodb/mongod.pid 
+	sudo chown mongodb:mongodb /var/run/mongodb/mongod.pid
 }
 
 start_mongodb()
