@@ -5,13 +5,25 @@
     "adminUsername": {
       "type": "string",
       "metadata": {
-        "description": "Administrator user name used when provisioning virtual machines (which also becomes a system user administrator in MongoDB)"
+        "description": "Administrator user name used when provisioning virtual machines"
       }
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "Administrator password used when provisioning virtual machines (which is also a password for the system administrator in MongoDB)"
+        "description": "Administrator password used when provisioning virtual machines"
+      }
+    },
+    "mongoUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Administrator user name for the system user administrator in MongoDB"
+      }
+    },
+    "mongoPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Administrator password used for the system user administrator in MongoDB"
       }
     },
     "dnsNamePrefix": {
@@ -126,6 +138,13 @@
       "defaultValue": "4.4.0",
       "metadata": {
         "description": "The version of the MongoDB packages to be deployed"
+      }
+    },
+    "mongoPort": {
+      "type": "string",
+      "defaultValue": "27100",
+      "metadata": {
+        "description": "Port number for mongo"
       }
     },
     "replicaSetName": {
@@ -278,7 +297,7 @@
     },
     "clusterSpec": "[variables(concat('tshirtSize', parameters('tshirtSize')))]",
     "osFamilySpec": "[variables(concat('osFamily', parameters('osFamily')))]",
-    "installCommand": "[concat('bash mongodb-', variables('osFamilySpec').osName, '-install.sh', ' -i ', variables('osFamilySpec').installerBaseUrl, ' -b ', variables('osFamilySpec').installerPackages, ' -v ', variables('osFamilySpec').installerVersion , ' -r ', parameters('replicaSetName'), ' -k ', parameters('replicaSetKey'), ' -u ', parameters('adminUsername'), ' -p ', parameters('adminPassword'), ' -x ', variables('networkSettings').machineIpPrefix, ' -n ', variables('clusterSpec').totalMemberCount)]",
+    "installCommand": "[concat('bash mongodb-', variables('osFamilySpec').osName, '-install.sh', ' -i ', variables('osFamilySpec').installerBaseUrl, ' -b ', variables('osFamilySpec').installerPackages, ' -v ', variables('osFamilySpec').installerVersion , ' -r ', parameters('replicaSetName'), ' -k ', parameters('replicaSetKey'), ' -u ', parameters('mongoUsername'), ' -p ', parameters('mongoPassword'), ' -x ', variables('networkSettings').machineIpPrefix, ' -n ', variables('clusterSpec').totalMemberCount, ' -p ', parameters('mongoPort') )]",
     "vmScripts": {
       "scriptsToDownload": [
         "[uri(parameters('_artifactsLocation'), concat('mongodb-', variables('osFamilySpec').osName, '-install.sh', parameters('_artifactsLocationSasToken')))]",

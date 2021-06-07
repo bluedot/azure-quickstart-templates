@@ -38,7 +38,7 @@ REPLICA_SET_KEY_FILE="/etc/mongo-replicaset-key"
 DATA_DISKS="/datadisks"
 DATA_MOUNTPOINT="$DATA_DISKS/disk1"
 MONGODB_DATA="$DATA_MOUNTPOINT/mongodb"
-MONGODB_PORT=27017
+MONGODB_PORT=27100
 IS_ARBITER=false
 IS_LAST_MEMBER=false
 JOURNAL_ENABLED=true
@@ -63,6 +63,7 @@ help()
 	echo "		-n Number of member nodes"
 	echo "		-a (arbiter indicator)"
 	echo "		-l (last member indicator)"
+	echo "		-m (port number)"
 }
 
 log()
@@ -122,6 +123,9 @@ while getopts :i:b:v:r:k:u:p:x:n:alh optname; do
 		;;
 	l) # Last member indicator
 		IS_LAST_MEMBER=true
+		;;
+	m) # Mongo port number
+		MONGODB_PORT=${OPTARG}
 		;;
     h)  # Helpful hints
 		help
