@@ -25,6 +25,12 @@
       "metadata": {
         "description": "Location for all resources."
       }
+    },
+    "mongoPort": {
+      "type": "string",
+      "metadata": {
+        "description": "Mongo port."
+      }
     }
   },
   "resources": [
@@ -90,7 +96,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "22",
-              "sourceAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('networkSettings').addressPrefix]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
@@ -103,8 +109,8 @@
               "description": "Allows MongoDB traffic",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "27017",
-              "sourceAddressPrefix": "*",
+              "destinationPortRange": "[parameters('mongoPort')]",
+              "sourceAddressPrefix": "[parameters('networkSettings').addressPrefix]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 110,
