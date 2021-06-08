@@ -265,7 +265,7 @@ configure_replicaset()
 		CURRENT_NODE_IP=${CURRENT_NODE_IPS[@]}
 
 		log "Adding an arbiter ${HOSTNAME} ($CURRENT_NODE_IP) node to the replica set $REPLICA_SET_NAME"
-		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host $PRIMARY_MEMBER_HOST --port $MONGODB_PORT --eval "printjson(rs.addArb('${CURRENT_NODE_IP}'))"
+		mongo --authenticationDatabase "admin" -u $ADMIN_USER_NAME -p $ADMIN_USER_PASSWORD --host $PRIMARY_MEMBER_HOST --port $MONGODB_PORT --eval "printjson(rs.addArb('${CURRENT_NODE_IP}:${MONGODB_PORT}'))"
 	fi
 }
 
