@@ -255,7 +255,7 @@
     },
     "vmStorageAccountContainerName": "vhd-mongodb",
     "vmStorageAccountDomain": ".blob.core.windows.net",
-    "sharedScriptUrl": "[concat('https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/', variables('osFamilySpec').osName, '/')]",
+    "sharedScriptUrl": "[concat('https://raw.githubusercontent.com/bluedot/azure-quickstart-templates/master/shared_scripts/', variables('osFamilySpec').osName, '/')]",
     "jumpboxTemplateEnabled": "jumpbox-resources.json",
     "jumpboxTemplateDisabled": "empty-resources.json",
     "arbiterTemplateEnabled": "arbiter-resources.json",
@@ -282,7 +282,8 @@
       "subnetName": "[parameters('subnetName')]",
       "subnetPrefix": "[parameters('subnetPrefix')]",
       "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'),  parameters('subnetName'))]",
-      "machineIpPrefix": "[parameters('nodeAddressPrefix')]"
+      "machineIpPrefix": "[parameters('nodeAddressPrefix')]",
+      "mongoPort": "[parameters('mongoPort')]"
     },
     "machineSettings": {
       "adminUsername": "[parameters('adminUsername')]",
