@@ -297,7 +297,7 @@
     },
     "clusterSpec": "[variables(concat('tshirtSize', parameters('tshirtSize')))]",
     "osFamilySpec": "[variables(concat('osFamily', parameters('osFamily')))]",
-    "installCommand": "[concat('bash mongodb-', variables('osFamilySpec').osName, '-install.sh', ' -i ', variables('osFamilySpec').installerBaseUrl, ' -b ', variables('osFamilySpec').installerPackages, ' -v ', variables('osFamilySpec').installerVersion , ' -r ', parameters('replicaSetName'), ' -k ', parameters('replicaSetKey'), ' -u ', parameters('mongoUsername'), ' -p ', parameters('mongoPassword'), ' -x ', variables('networkSettings').machineIpPrefix, ' -n ', variables('clusterSpec').totalMemberCount, ' -p ', parameters('mongoPort') )]",
+    "installCommand": "[concat('bash mongodb-', variables('osFamilySpec').osName, '-install.sh', ' -i ', variables('osFamilySpec').installerBaseUrl, ' -b ', variables('osFamilySpec').installerPackages, ' -v ', variables('osFamilySpec').installerVersion , ' -r ', parameters('replicaSetName'), ' -k ', parameters('replicaSetKey'), ' -u ', parameters('mongoUsername'), ' -p ', parameters('mongoPassword'), ' -x ', variables('networkSettings').machineIpPrefix, ' -n ', variables('clusterSpec').totalMemberCount, ' -m ', parameters('mongoPort') )]",
     "vmScripts": {
       "scriptsToDownload": [
         "[uri(parameters('_artifactsLocation'), concat('mongodb-', variables('osFamilySpec').osName, '-install.sh', parameters('_artifactsLocationSasToken')))]",
