@@ -83,7 +83,7 @@ then
 fi
 
 # Parse script parameters
-while getopts :i:b:v:r:k:u:p:x:n:alh optname; do
+while getopts :i:b:v:r:k:u:p:x:n:m:alh optname; do
 
 	# Log input parameters (except the admin password) to facilitate troubleshooting
 	if [ ! "$optname" == "p" ] && [ ! "$optname" == "k" ]; then
