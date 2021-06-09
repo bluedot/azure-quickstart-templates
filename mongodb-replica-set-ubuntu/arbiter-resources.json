@@ -36,6 +36,18 @@
   "variables": {},
   "resources": [
     {
+      "apiVersion": "2020-05-01",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[concat('nicMember',parameters('machineSettings').machineIndex,'PublicIp')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(parameters('networkSettings').dnsNamePrefix, parameters('machineSettings').machineIndex) ]"
+        }
+      }
+    },
+    {
       "type": "Microsoft.Network/networkInterfaces",
       "name": "nicArbiter",
       "apiVersion": "2020-05-01",
