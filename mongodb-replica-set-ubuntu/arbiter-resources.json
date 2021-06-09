@@ -43,7 +43,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('networkSettings').dnsNamePrefix, parameters('machineSettings').machineIndex) ]"
+          "domainNameLabel": "[concat(parameters('networkSettings').dnsNamePrefix, 'Arbiter') ]"
         }
       }
     },
