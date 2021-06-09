@@ -38,7 +38,7 @@
     {
       "apiVersion": "2020-05-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "['nicArbiter','PublicIp')]",
+      "name": "['nicArbiterPublicIp')]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
@@ -53,7 +53,7 @@
       "apiVersion": "2020-05-01",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses/', concat('nicArbiter','PublicIp'))]"
+        "[resourceId('Microsoft.Network/publicIPAddresses/', 'nicArbiterPublicIp')]"
       ],
       "properties": {
         "networkSecurityGroup": {
@@ -64,7 +64,7 @@
             "name": "ipConfigArbiter",
             "properties": {
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('nicArbiter','PublicIp'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'nicArbiterPublicIp')]"
               },
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
