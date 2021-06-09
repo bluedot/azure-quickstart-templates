@@ -38,12 +38,12 @@
     {
       "apiVersion": "2020-05-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat('nicMember',parameters('machineSettings').machineIndex,'PublicIp')]",
+      "name": "['nicArbiter','PublicIp')]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(parameters('networkSettings').dnsNamePrefix, parameters('machineSettings').machineIndex) ]"
+          "domainNameLabel": "[concat(parameters('networkSettings').dnsNamePrefix, 'Arbiter') ]"
         }
       }
     },
@@ -52,11 +52,20 @@
       "name": "nicArbiter",
       "apiVersion": "2020-05-01",
       "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses/', concat('nicArbiter','PublicIp'))]"
+      ],
       "properties": {
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('commonSettings').securityGroupName)]"
+        },
         "ipConfigurations": [
           {
             "name": "ipConfigArbiter",
             "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('nicArbiter','PublicIp'))]"
+              },
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[parameters('networkSettings').subnetRef]"
