@@ -294,6 +294,11 @@ processManagement:
 net:
     bindIpAll: true
     port: $MONGODB_PORT
+    #tls:
+        #mode: requireTLS
+        #certificateKeyFile: /etc/ssl/mongodb.pem
+        #CAFile: /etc/ssl/rootCA.pem
+        #allowConnectionsWithoutCertificates: true   
 security:
     #keyFile: ""
     authorization: "disabled"
